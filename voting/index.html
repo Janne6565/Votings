@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.png">
+    <title>Votings</title>
+</head>
+<body>
+    <div id="app">
+        <div class="voting" v-if="found">
+            <div class="edit" v-if="belongsMe">
+                <header :style="'background-color: ' + votingData.Color + ';'">
+                    <h1 contenteditable="true" id="votingHeader">{{votingData.Header}}</h1>
+                    <h3>{{votingData.Date}}</h3>
+                    <color-selector @change="setColor"></color-selector>
+                </header>
+                <div class="content">
+                    <h2 class="heading">Results</h2>
+                    <div class="listRes" v-if="votesAll > 0">
+                        <canvas id="resultChart"></canvas>
+                    </div>
+                    <div class="noVotes" v-else>
+                        <h2>Nobody voted</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="view" v-else> 
+                <header :style="'background-color: ' + votingData.color + ';'">
+                    <h2>Voting is not yours</h2>
+                    <h1>{{votingData.Header}}</h1>
+                    <h3>{{votingData.Date}}</h3>
+                </header>
+                <div class="content">
+                    <h2>Vote</h2>
+                    <div class="listCands">
+                        
+                    </div>
+                    <input type="text" placeholder="Code" id="code" v-model="code">
+                    <input type="button" value="Vote" @click="vote()">
+                </div>
+            </div>
+        </div>
+        <div class="error" v-else>
+            <h2>{{error.code}}</h2>
+            <h2>{{error.message}}</h2>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="./palette.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

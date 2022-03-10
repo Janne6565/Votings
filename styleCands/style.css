@@ -1,0 +1,42 @@
+* {
+    margin: 0; 
+    box-sizing: border-box;
+}
+
+.list {
+    display: flex;
+    flex-direction: row;
+}
+
+.list > .item {
+    margin: 2em;
+    background-color: whitesmoke;
+    color: white;
+    border-radius: 5px;
+    width: 20rem;
+    overflow: hidden;
+    opacity: .7;
+    box-shadow: 2px 2px 2px gray;
+    transition: all ease .3s;
+}
+
+.list > .item:hover {
+    box-shadow: 8px 8px 8px gray;
+    transform: scale(1.1);
+}
+
+.list > .item > .color {
+    height: 7vh;
+    opacity: .7;
+}
+
+.list > .item > h2 {
+    width: 100%;
+    padding: 20%;
+    padding-top: 6%;
+    padding-bottom: 40%;
+    display: flex; 
+    justify-content: center;
+    align-content: flex-start;
+    text-align: center;
+}

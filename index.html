@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.png">
+    <title>Votings</title>
+</head>
+<body>
+    <div id="app">
+        <div class="notLoggedIn" v-if="loggedIn == false">
+            <div class="form loginForm">
+                <h1>Login</h1>
+                <input type="email" class="textInput input" v-model="loginData.email" placeholder="Email">
+                <input type="password" class="textInput input" v-model="loginData.password" placeholder="Password">
+                <input type="button" class="btn submit input" @click="login()" value="Login">
+                <p id="warningLog" style="color: red;">{{warningLog}}</p>
+            </div>
+            <div class="form registerForm">
+                <h1>Register</h1>
+                <input type="email" class="textInput input" v-model="registerData.email" placeholder="Email">
+                <input type="text" class="textInput input" v-model="registerData.name" placeholder="Name">
+                <input type="password" class="textInput input" v-model="registerData.password" placeholder="Password">
+                <input type="button" class="btn submit input" @click="register()" value="Register">
+                <p id="warningReg" style="color: red;">{{warningReg}}</p>
+            </div>
+        </div>
+        <div class="informations">
+            <h1>Votings</h1>
+            <p>
+                The perfect place for all your Polls. 
+            </p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

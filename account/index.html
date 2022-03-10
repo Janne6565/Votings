@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="../favicon.png">
+    <title>Votings</title>
+</head>
+<body>
+    <div id="app">
+        <div class="createVoting" v-if="site==1">
+            <div class="form">
+                <h2>Create Voting</h2>
+                <input class="inputText" type="text" placeholder="Name" name="name" id="name" v-model="createVotingData.name">
+                <color-selector v-on:change="setColor"></color-selector>
+                <input class="inputText" type="text" placeholder="Description" name="description" id="description" v-model="createVotingData.description">
+                <input class="inputText" min=0 type="number" placeholder="Count of Codes" name="count" id="count" v-model="createVotingData.count">
+                <h2>Options:</h2>
+                <div class="listUsers">
+                    <div v-for="option in createVotingData.options" class="user" onclick="">
+                        <textarea class="name blocked" v-model="option.name"></textarea>
+                        <div class="image" title="Check this box and enter the Image URL in the box above">
+                            <input type="checkbox" :id="'image' + option.id" class="check" v-model="option.image">
+                            <label :for="'image' + option.id">Image</label>
+                        </div>
+                    </div>
+                    <div class="addUser" @click="createVotingData.options.push({name:'Option ' + indexRn, image:false, id: indexRn}); indexRn += 1"><img src="./assets/add.svg" alt="Add Option" class="addUser"></div>
+                </div>
+                <div class="messageVoting">{{messageVoting}}</div>
+                <div class="btns">
+                    <button class="button btnBack" @click="site = 0">Back</button>
+                    <button class="button" @click="createVoting" :class="{'unactive' : createVotingData.waiting}">Create Voting</button>
+                </div>
+            </div>
+        </div>
+        <div class="main" v-if="site==0">
+            <section id="sec1" class="sec1 section">
+                <div class="top">
+                    <div class="name">{{userData.name}}</div>
+                    <div class="logo">
+                        <img src="./assets/vote.svg" alt="Votings" srcset="" class="votingIcon icon">
+                    </div>
+                </div>
+                <button @click="site = 1">
+                    Create Voting
+                </button>
+            </section>
+            <section id="sec2" class="sec2 section">
+                <h2 class="headerLists">Active Votings</h2>
+                <div class="active list">
+                    <div v-for="voting in votings.active" class="container" :style="'background-color: ' +  voting.color" @click="openVoting(voting.votingId)">
+                        <div class="name">{{voting.header}}</div>
+                        <div class="results">
+                            <div class="span" v-if="voting.voted > 0" v-for="res in voting.results">{{res.title}} - {{res.perc}}</div>
+                            <div class="span" v-if="voting.voted == 0">No Votes</div>
+                        </div>
+                        <div class="count">{{voting.voted}}/{{voting.countCodes}}</div>
+                    </div>
+                    <div class="container" style="background-color: rgba(66, 66, 66, 0.3)" @click="site = 1">
+                        <div class="name">Create new Voting</div>
+                        <div class="results">
+                            <image src="./assets/add.svg" class="iconAddNewVoting"></image>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="headerLists">Finished Votings</h2>
+                <div class="inactive list">
+                    <div v-for="voting in votings.unactive" class="container" :style="'background-color: ' +  voting.color" @click="openVoting(voting.votingId)">
+                    <div class="name">{{voting.header}}</div>
+                        <div class="results">
+                            <div class="span" v-if="voting.voted > 0" v-for="res in voting.results">{{res.title}} - {{res.perc}}</div>
+                            <div class="span" v-if="voting.voted == 0">No Votes</div>
+                        </div>
+                        <div class="count">{{voting.voted}}/{{voting.countCodes}}</div>
+                    </div>
+                    <div v-if="votings.unactive.length == 0" class="container" style="background-color: rgba(66, 66, 66, 0.3);" @click="site = 1">
+                        <div class="name">Create new Voting</div>
+                        <div class="results resultsNone">
+                            <image src="./assets/add.svg" class="iconAddNewVoting"></image>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
